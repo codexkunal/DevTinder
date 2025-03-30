@@ -2,6 +2,8 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addRequests, removeRequest } from './utils/requestSlice'
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 const Requests = () => {
 const requests = useSelector((store) => store.requests)
@@ -9,7 +11,7 @@ const dispatch = useDispatch()
 
 const reviewRequest = async (status, _id) => {
   try {
-    const res = await axios.post(`http://localhost:3000/request/review/${status}/${_id}` , {}, {withCredentials : true})
+    const res = await axios.post(`${BASE_URL}/request/review/${status}/${_id}` , {}, {withCredentials : true})
     dispatch(removeRequest(_id))
     
   } catch (error) {
@@ -19,7 +21,7 @@ const reviewRequest = async (status, _id) => {
 
 const fetchRequests = async () =>{
   try {
-    const res = await axios.get("http://localhost:3000/user/requests/pending",{
+    const res = await axios.get(`${BASE_URL}/user/requests/pending`,{
       withCredentials:true
     })
 

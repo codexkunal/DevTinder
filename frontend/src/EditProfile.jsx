@@ -16,13 +16,14 @@ const EditProfile = ({ user }) => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const saveProfile = async () => {
     //Clear Errors
     setError("");
     try {
       const res = await axios.patch(
-       "http://localhost:3000/profile/edit",
+       `${BASE_URL}/profile/edit`,
         {
           firstName,
           lastName,

@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFeed } from './utils/feedSlice'
 import UserCard from './UserCard'
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 const Feed = () => {
 
@@ -12,7 +14,7 @@ const dispatch = useDispatch()
 const getFeed = async () => {
   if(feed) return 
   try{
-    const res = await axios.get("http://localhost:3000/feed", {withCredentials:true})
+    const res = await axios.get(`${BASE_URL}/feed`, {withCredentials:true})
     // console.log(res.data.data[0], "res from backend")
     dispatch(addFeed(res?.data?.data))
   }catch(err){
