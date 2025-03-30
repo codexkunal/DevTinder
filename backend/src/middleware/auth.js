@@ -20,6 +20,7 @@ const userAuth = async (req, res, next) => {
     if (!token) {
       res.status(401).send("please login!!")
     }
+    console.log(token)
     const decodedToken = jwt.verify(token, "Kunalsingh");
     console.log(decodedToken);
       
