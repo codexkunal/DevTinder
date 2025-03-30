@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow frontend origin
+    origin: "https://dev-tinder-sandy.vercel.app/", // Allow frontend origin
     credentials: true, // Allow cookies if needed
   })
 );
