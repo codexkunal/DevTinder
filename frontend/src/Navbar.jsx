@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { removeUser } from './utils/userSlice'
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-
+console.log(BASE_URL)
 
 const Navbar = () => {
 const user = useSelector((store) => store.user)

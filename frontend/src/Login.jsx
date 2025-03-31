@@ -32,7 +32,7 @@ const Login = () => {
       );
       console.log(res);
       dispatch(addUser(res.data));
-      return navigate("/");
+      return navigate("/feed");
     } catch (err) {
       console.log(err);
     }
