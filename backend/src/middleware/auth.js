@@ -19,6 +19,10 @@ const userAuth = async (req, res, next) => {
     }
 
     const { token } = cookie;
+    if (!token) {
+      return res.status(401).json({ error: "Please login!" }); // 🔥 Fixed: Added return
+    }
+
     console.log("Received Token:", token);
 
     const decodedToken = jwt.verify(token, "Kunalsingh");
