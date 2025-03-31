@@ -131,7 +131,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
       .limit(limit);
 
     res.json({ data: users });
-    console.log(users)
+    // console.log(users)
   } catch (err) {
     res.status(401).json({ message: err.message });
   }

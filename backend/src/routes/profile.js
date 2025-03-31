@@ -106,7 +106,7 @@ profileRouter.patch("/profile/password", userAuth , async (req,res)=>{
 
     await user.save()
 
-    console.log("new password" + user.password);
+    // console.log("new password" + user.password);
     res.status(200).send("User password update successfully")
     
 }catch(err){
