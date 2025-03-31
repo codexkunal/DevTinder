@@ -57,9 +57,15 @@ authRouter.post("/login", async (req, res) => {
 
       if (isValidPassword) {
         //  jwt token
-        const token = await jwt.sign({id:user._id}, "Kunalsingh", {expiresIn:"1d"})
+        const token = jwt.sign({id:user._id}, "Kunalsingh", {expiresIn:"1d"})
         // console.log(token);
-        res.cookie("token", token,{expire: 360000 + Date.now()})
+        // res.cookie("token", token,{expire: 360000 + Date.now()})
+        res.cookie("token", token, {
+          httpOnly: true, // Prevent access via JavaScript
+          secure: true, // Use only in HTTPS
+          sameSite: "None", // Required for cross-origin cookies
+        });
+        
         res.status(200).send(user);
       } else {
         throw new Error("Password is not Valid");

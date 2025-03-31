@@ -26,7 +26,7 @@ navigate("/login")
   return (
     <div className="navbar bg-base-300 shadow-sm bottom-0">
   <div className="flex-1">
-    <Link to="/" className="btn btn-ghost text-xl">daisyUI</Link>
+    <Link to="/feed" className="btn btn-ghost text-xl">DevTinder</Link>
   </div>
 
   {user && (

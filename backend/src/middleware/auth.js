@@ -14,6 +14,7 @@ const User = require("../models/user");
 const userAuth = async (req, res, next) => {
   try {
     const cookie = req.cookies;
+    console.log(cookie, "this is the cookie from the auth middleware")
     if (!cookie || !cookie.token) {
       return res.status(401).json({ message: "Please login!!" });
     }
