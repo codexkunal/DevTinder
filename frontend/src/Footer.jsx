@@ -2,6 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
+    <div className="min-h-screen flex flex-col">
     <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
     <aside className="grid-flow-col items-center">
       <svg
@@ -32,6 +33,7 @@ const Footer = () => {
      
     </nav>
   </footer>
+  </div>
   )
 }
 
