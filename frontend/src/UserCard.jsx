@@ -8,6 +8,7 @@ const UserCard = ({user}) => {
     // console.log(user, "in the usercard")
     // console.log(user.data[0].firstName , "first user")
 const { _id, firstName, lastName, profileUrl, age, skills, about, gender} = user
+console.log(profileUrl , "this is the profile url from the user card section")
 const dispatch = useDispatch()
 const handleSendRequest = async(status, userId) =>{
   try {
