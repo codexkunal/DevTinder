@@ -23,7 +23,7 @@ const handleSendRequest = async(status, userId) =>{
   <figure>
     <img
       src={profileUrl}
-      alt="Shoes" />
+      alt="user profile"/>
   </figure>
   <div className="card-body">
     <h2 className="card-title">{firstName + " " + lastName}</h2>
