@@ -5,11 +5,12 @@ const app = express();
 const cors = require("cors")
 const cookieParser = require("cookie-parser");
 // "https://dev-tinder-sandy.vercel.app"
+// " http://localhost:5173/"
 
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://dev-tinder-sandy.vercel.app", // Allow frontend origin
+    origin:"https://dev-tinder-sandy.vercel.app", // Allow frontend origin
     credentials: true, // Allow cookies if needed
   })
 );

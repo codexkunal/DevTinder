@@ -14,6 +14,7 @@ requestRouter.post(
       const fromUserId = req.user._id;
       const toUserId = req.params.toUserId;
       const status = req.params.status;
+      console.log(status , "from backend")
 
       const statusAllowed = ["interested", "ignored"];
 
