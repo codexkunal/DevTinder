@@ -4,7 +4,7 @@ dotenv.config();
 // console.log(process.env.mongoDB_URI)
 const connectDB = async () => {
   await mongoose.connect(
-    process.env.mongoDB_URI
+    "mongodb+srv://kunal:Kunalsingh111@learningnode.enmvd.mongodb.net/DevTinder?retryWrites=true&w=majority&appName=LearningNode"
   );
 };
 
