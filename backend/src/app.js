@@ -9,11 +9,12 @@ const socket = require('socket.io')
 
 // "https://dev-tinder-sandy.vercel.app"
 // " http://localhost:5173/"
+// https://dev-tinder-sandy.vercel.app
 
 app.use(cookieParser());
 app.use(
   cors({
-    origin:"https://dev-tinder-sandy.vercel.app", // Allow frontend origin
+    origin:"http://localhost:5173", // Allow frontend origin
     credentials: true, // Allow cookies if needed
   })
 );

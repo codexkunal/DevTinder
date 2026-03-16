@@ -3,9 +3,11 @@ const validator = require("validator")
 const validateUserData = (req) => {
       
 //    const data =  JSON.parse(req.body)
-   console.log(req)
+//    console.log(req)
+console.log('esnfklksdnglsdglsdng');
 
     const { firstName, lastName, email, password } = req
+console.log(firstName, lastName, email, password);
 
     if(!firstName || !lastName){
         throw new Error("Please provide first Name and Last Name")
@@ -14,7 +16,8 @@ const validateUserData = (req) => {
     }else if(!validator.isStrongPassword(password)){
         throw new Error("Please provide Strong Password")
     }
-
+ console.log("returnig to the signup api");
+ 
     return { firstName, lastName, email, password }
 }
 

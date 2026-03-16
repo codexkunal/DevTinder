@@ -14,11 +14,14 @@ const authRouter = express.Router()
 // API for signup
 authRouter.post("/signup", async (req, res) => {
     try {
+      console.log("this is signup api", req.body)
       const data = validateUserData(req.body);
+      console.log("reached to the data");
+      
       const password = data.password;
       const hashPassword = await bcrypt.hash(password, 10);
-    //   console.log(data);
-    //   console.log(hashPassword);
+      console.log("data is validated",data);
+      console.log(hashPassword);
       const user = new User({
         firstName: data.firstName,
         lastName: data.lastName,
@@ -36,18 +39,18 @@ authRouter.post("/signup", async (req, res) => {
 
 authRouter.post("/login", async (req, res) => {
     try {
-      // console.log(req.body)
+      console.log(req.body)
       const { email, password } = req.body;
       console.log( req.body.password)
       console.log(req.body.email)
 
 
-      // console.log("Full request body:", req.body);  // Check received structure
-      // console.log("Email:", req.body.emailId); // Debug email
-      // console.log("Password:", req.body.password); // Debug password
+      console.log("Full request body:", req.body);  // Check received structure
+      console.log("Email:", req.body.emailId); // Debug email
+      console.log("Password:", req.body.password); // Debug password
 
       const user = await User.findOne({ email: email });
-      // console.log(user);
+      console.log(user);
       if (!user) {
         throw new Error("Invalid Credentials");
       }

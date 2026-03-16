@@ -1,43 +1,64 @@
-const socket = require('socket.io')
+const socket = require("socket.io");
 const crypto = require("crypto");
+const Chat = require("../models/chat");
 
 const getSecretRoomId = (userId, targetUserId) => {
-    return crypto
-      .createHash("sha256")
-      .update([userId, targetUserId].sort().join("$"))
-      .digest("hex");
-  };
+  return crypto
+    .createHash("sha256")
+    .update([userId, targetUserId].sort().join("$"))
+    .digest("hex");
+};
 
 const initialize = (server) => {
-    const io = socket(server, {
-      cors:{
-        origin : "https://dev-tinder-sandy.vercel.app",
-        methods: ["GET", "POST"],
-    credentials: true
-      }
-    })
+  const io = socket(server, {
+    cors: {
+      origin: "https://dev-tinder-sandy.vercel.app",
+      methods: ["GET", "POST"],
+      credentials: true,
+    },
+  });
 
-    io.on('connection', (socket)=>{
-        // Event Handler
-        socket.on("joinChat", ({ firstName, userId, targetUserId }) => {
-            const roomId = getSecretRoomId(userId, targetUserId);
-            console.log(firstName + " joined Room : " + roomId);
-            socket.join(roomId);
+  io.on("connection", (socket) => {
+    // Event Handler
+    socket.on("joinChat", ({ firstName, userId, targetUserId }) => {
+      const roomId = getSecretRoomId(userId, targetUserId);
+      console.log(firstName + " joined Room : " + roomId);
+      socket.join(roomId);
+    });
+
+    socket.on(
+      "sendMessage",
+      async ({ firstName, userId, targetUserId, text }) => {
+        try {
+          const roomId = getSecretRoomId(userId, targetUserId);
+          console.log(firstName + " " + text + roomId);
+
+          let chat = await Chat.findOne({
+            participants: { $all: [userId, targetUserId] },
           });
 
-        socket.on("sendMessage", ({
-          firstName , userId, targetUserId,  text
-        })=>{
-          const roomId =  getSecretRoomId(userId, targetUserId);
-          console.log(firstName + " " +  text + roomId)
-          io.to(roomId).emit("messageReceived", {firstName, text})
-        })
+          if (!chat) {
+            chat = new Chat({
+              participants: [userId, targetUserId],
+              messages: [],
+            });
+          }
 
-        socket.on("disconnect", ()=>{
-            
-        })
-    })
-    
-}
+          chat.messages.push({
+            senderId: userId,
+            text,
+          });
 
-module.exports = initialize
+          await chat.save();
+          io.to(roomId).emit("messageReceived", { firstName, text });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    );
+
+    socket.on("disconnect", () => {});
+  });
+};
+
+module.exports = initialize;
