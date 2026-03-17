@@ -1,6 +1,6 @@
 const socket = require("socket.io");
 const crypto = require("crypto");
-const Chat = require("../models/chat");
+const { Chat } = require("../models/chat");
 
 const getSecretRoomId = (userId, targetUserId) => {
   return crypto
@@ -12,7 +12,7 @@ const getSecretRoomId = (userId, targetUserId) => {
 const initialize = (server) => {
   const io = socket(server, {
     cors: {
-      origin: "https://dev-tinder-sandy.vercel.app",
+      origin: "http://localhost:5173",
       methods: ["GET", "POST"],
       credentials: true,
     },
@@ -24,6 +24,11 @@ const initialize = (server) => {
       const roomId = getSecretRoomId(userId, targetUserId);
       console.log(firstName + " joined Room : " + roomId);
       socket.join(roomId);
+    });
+
+    socket.on("joinPersonalRoom", ({ userId }) => {
+      console.log("User joined personal room: user_" + userId);
+      socket.join("user_" + userId);
     });
 
     socket.on(
@@ -40,17 +45,40 @@ const initialize = (server) => {
           if (!chat) {
             chat = new Chat({
               participants: [userId, targetUserId],
-              messages: [],
+              message: [],
             });
           }
 
-          chat.messages.push({
+          // Push and save the chat to get the auto-generated timestamp
+          chat.message.push({
             senderId: userId,
             text,
           });
 
-          await chat.save();
-          io.to(roomId).emit("messageReceived", { firstName, text });
+          try {
+            await chat.save();
+            console.log("Chat saved successfully.");
+          } catch (saveErr) {
+            console.error("CRITICAL ERROR saving chat to DB:", saveErr);
+            throw saveErr;
+          }
+          
+          // Retrieve the newly added message to get its createdAt timestamp
+          const newMessage = chat.message[chat.message.length - 1];
+
+          io.to(roomId).emit("messageReceived", { 
+            firstName, 
+            text, 
+            createdAt: newMessage.createdAt 
+          });
+
+          console.log(`Emitting global notification to: user_${targetUserId} from: ${userId}`);
+          
+          // Also emit to the target user's personal room for global notifications
+          io.to("user_" + targetUserId).emit("newMessageNotification", {
+            fromUserId: userId,
+            firstName
+          });
         } catch (err) {
           console.log(err);
         }
@@ -59,6 +87,8 @@ const initialize = (server) => {
 
     socket.on("disconnect", () => {});
   });
+
+  return io;
 };
 
 module.exports = initialize;

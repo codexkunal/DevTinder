@@ -52,6 +52,13 @@ requestRouter.post(
 
       const connectionRequestObject = await connectionRequest.save();
 
+      // Emit realtime notification to the target user if this is an "interested" swipe
+      if (status === "interested" && req.app.locals.io) {
+        req.app.locals.io.to("user_" + toUserId).emit("newRequestNotification", {
+          fromUserId: fromUserId
+        });
+      }
+
       res.json({
         message: "connestion Request Made Successfully",
         data: connectionRequestObject,

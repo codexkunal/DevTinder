@@ -56,12 +56,82 @@ const userSchema = new mongoose.Schema(
     about: {
       type: String,
       default: "This is the default about of user",
-      maxLength : 100
+      maxLength: 500,
     },
     profileUrl: {
       type: String,
-      default:
-        "https://www.google.com/imgres?q=user%20image&imgurl=https%3A%2F%2Ffreesvg.org%2Fimg%2F1459344336.png&imgrefurl=https%3A%2F%2Ffreesvg.org%2Ffemale-user-icon&docid=KAUwNXKfGoRxKM&tbnid=KQ6_O_8WK9hD-M&vet=12ahUKEwi2_qregrSLAxVem68BHbpDMEMQM3oECGEQAA..i&w=600&h=600&hcb=2&ved=2ahUKEwi2_qregrSLAxVem68BHbpDMEMQM3oECGEQAA",
+      default: "",
+    },
+
+    // =====================
+    // Extended Profile Fields
+    // =====================
+    title: {
+      type: String,
+      default: "",
+      maxLength: 100,
+    },
+    location: {
+      type: String,
+      default: "",
+      maxLength: 100,
+    },
+    github: {
+      type: String,
+      default: "",
+      maxLength: 200,
+    },
+    linkedin: {
+      type: String,
+      default: "",
+      maxLength: 200,
+    },
+    portfolio: {
+      type: String,
+      default: "",
+      maxLength: 200,
+    },
+    interests: {
+      type: [String],
+      default: [],
+      validate(value) {
+        if (value.length > 10) {
+          throw new Error("Cannot add more than 10 interests");
+        }
+      },
+    },
+    languages: {
+      type: [
+        {
+          name: { type: String, required: true },
+          proficiency: { type: Number, min: 0, max: 100, default: 50 },
+        },
+      ],
+      default: [],
+      validate(value) {
+        if (value.length > 10) {
+          throw new Error("Cannot add more than 10 languages");
+        }
+      },
+    },
+    projects: {
+      type: [
+        {
+          name: { type: String, required: true },
+          description: { type: String, default: "" },
+          imageUrl: { type: String, default: "" },
+          repoUrl: { type: String, default: "" },
+          stars: { type: Number, default: 0 },
+          forks: { type: Number, default: 0 },
+          tag: { type: String, default: "" },
+        },
+      ],
+      default: [],
+      validate(value) {
+        if (value.length > 10) {
+          throw new Error("Cannot add more than 10 projects");
+        }
+      },
     },
   },
   { timestamps: true }

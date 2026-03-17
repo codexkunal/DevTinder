@@ -14,7 +14,7 @@ const socket = require('socket.io')
 app.use(cookieParser());
 app.use(
   cors({
-    origin:"http://localhost:5173", // Allow frontend origin
+    origin: "http://localhost:5173", // Allow frontend origin
     credentials: true, // Allow cookies if needed
   })
 );
@@ -28,12 +28,14 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile")
 const requestRouter = require("./routes/request")
 const userRouter = require("./routes/user")
+const chatRouter = require("./routes/chat")
 const initialize = require("./utils/socket")
 
 
 const server = http.createServer(app)
 
-initialize(server)
+const io = initialize(server)
+app.locals.io = io;
 // initialize(server)
 
 
@@ -53,6 +55,7 @@ app.use("/", authRouter)
 app.use("/", profileRouter)
 app.use("/", requestRouter)
 app.use("/", userRouter)
+app.use("/", chatRouter)
 
 
 

@@ -1,82 +1,9 @@
-// import React, { useEffect } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { addConnections } from './utils/connectionSlice'
-// import axios from 'axios'
-// import { Link } from 'react-router-dom';
-// const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-
-// const Connections = () => {
-//   const connections = useSelector((store) => store.connections);
-//   const dispatch = useDispatch();
-//   const fetchConnections = async () => {
-//     try {
-//       const res = await axios.get(`${BASE_URL}/user/connection`, {
-//         withCredentials: true,
-//       });
-//       dispatch(addConnections(res.data.data));
-//     } catch (err) {
-//       // Handle Error Case
-//       console.error(err);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchConnections();
-//   }, []);
-
-//   if (!connections) return;
-
-//   if (connections.length === 0) return <h1> No Connections Found</h1>;
-
-//   return (
-//     <div className="text-center my-10">
-//       <h1 className="text-bold text-white text-3xl">Connections</h1>
-
-//       {connections.map((connection) => {
-//         const { _id, firstName, lastName, profileUrl, age, gender, about } =
-//           connection;
-//           console.log(profileUrl)
-
-//         return (
-//           <div
-//             key={_id}
-//             className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
-//           >
-//             <div>
-//               <img
-//                 alt="photo"
-//                 className="w-20 h-20 rounded-full object-cover"
-//                 src={profileUrl}
-//               />
-//             </div>
-//             <div className="text-left mx-4 ">
-//               <h2 className="font-bold text-xl">
-//                 {firstName + " " + lastName}
-//               </h2>
-//               {age && gender && <p>{age + ", " + gender}</p>}
-//               <p>{about}</p>
-//             </div>
-//             <Link to={"/chat/" + _id}>
-//               <button className="btn btn-primary">Chat</button>
-//             </Link>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// };
-// export default Connections;
-
-
-// ==========================================================
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addConnections } from './utils/connectionSlice';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Users, MessageSquare, User2, Calendar, ArrowRight } from 'lucide-react';
+import { Users, MessageSquare, User2, Calendar, ArrowRight, Code2 } from 'lucide-react';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -97,95 +24,88 @@ const Connections = () => {
 
   useEffect(() => {
     fetchConnections();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!connections) return null;
 
   if (connections.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-gray-800 rounded-xl p-8 text-center">
-          <div className="mb-6">
-            <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="w-10 h-10 text-gray-400" />
-            </div>
-            <h2 className="text-2xl font-bold text-white mb-3">No Connections Yet</h2>
-            <p className="text-gray-400 mb-6">
-              Start exploring and connecting with other developers to build your network!
-            </p>
-            <Link
-              to="/feed"
-              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors duration-200"
-            >
-              Explore Developers
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+      <div className="flex items-center justify-center min-h-[70vh] p-4">
+        <div className="dt-card p-10 text-center max-w-md">
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
+            style={{ background: 'var(--accent-cyan-dim)' }}>
+            <Users className="w-8 h-8" style={{ color: 'var(--accent-cyan)' }} />
           </div>
+          <h2 className="text-xl font-bold text-white mb-2">No Connections Yet</h2>
+          <p className="text-sm mb-6" style={{ color: 'var(--text-muted)' }}>
+            Start exploring and connecting with other developers to build your network!
+          </p>
+          <Link to="/feed" className="dt-btn-primary no-underline text-sm">
+            Explore Developers <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 p-6">
+    <div className="min-h-screen py-8 px-4 lg:px-8" style={{ background: 'var(--bg-primary)' }}>
       <div className="max-w-4xl mx-auto">
+        {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-white">Your Connections</h1>
-          <Link
-            to="/feed"
-            className="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2"
-          >
-            <Users className="w-4 h-4" />
-            Find More
+          <div>
+            <h1 className="text-2xl font-bold text-white">Your Connections</h1>
+            <p className="text-xs font-mono mt-1" style={{ color: 'var(--text-muted)' }}>
+              {connections.length} developer{connections.length !== 1 ? 's' : ''} in your network
+            </p>
+          </div>
+          <Link to="/feed" className="dt-btn-outline text-xs no-underline">
+            <Users className="w-3.5 h-3.5" /> Find More
           </Link>
         </div>
 
-        <div className="grid gap-4">
+        {/* Connection Cards */}
+        <div className="space-y-3">
           {connections.map((connection) => {
             const { _id, firstName, lastName, profileUrl, age, gender, about } = connection;
 
             return (
-              <div
-                key={_id}
-                className="bg-gray-800 rounded-xl p-4 flex items-center gap-6 transform transition-all duration-300 hover:scale-[1.01]"
-              >
+              <div key={_id} className="dt-card p-4 flex items-center gap-5">
+                {/* Avatar */}
                 <div className="flex-shrink-0">
                   <img
                     alt={`${firstName}'s profile`}
-                    className="w-24 h-24 rounded-xl object-cover"
-                    src={profileUrl || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80'}
+                    className="w-16 h-16 rounded-xl object-cover"
+                    src={profileUrl || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop'}
+                    style={{ border: '1px solid var(--border-color)' }}
                   />
                 </div>
-                
-                <div className="flex-grow">
-                  <h2 className="text-xl font-bold text-white mb-1">
-                    {firstName} {lastName}
-                  </h2>
-                  <div className="flex items-center gap-4 text-gray-400 text-sm mb-2">
-                    {age && gender && (
-                      <>
-                        <span className="flex items-center gap-1">
-                          <User2 className="w-4 h-4" />
-                          {gender}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {age} years
-                        </span>
-                      </>
+
+                {/* Info */}
+                <div className="flex-grow min-w-0">
+                  <h2 className="text-base font-semibold text-white">{firstName} {lastName}</h2>
+                  <div className="flex items-center gap-3 mt-1">
+                    {gender && (
+                      <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--text-muted)' }}>
+                        <User2 className="w-3 h-3" /> {gender}
+                      </span>
+                    )}
+                    {age && (
+                      <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--text-muted)' }}>
+                        <Calendar className="w-3 h-3" /> {age} yrs
+                      </span>
                     )}
                   </div>
                   {about && (
-                    <p className="text-gray-300 text-sm line-clamp-2">{about}</p>
+                    <p className="text-xs mt-1 truncate" style={{ color: 'var(--text-secondary)' }}>{about}</p>
                   )}
                 </div>
 
-                <Link
-                  to={`/chat/${_id}`}
-                  className="flex-shrink-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors duration-200 flex items-center gap-2"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  Chat
+                {/* Chat Button */}
+                <Link to={`/chat/${_id}`}
+                  className="dt-btn-primary text-xs no-underline flex-shrink-0 px-5 py-2.5">
+                  <MessageSquare className="w-3.5 h-3.5" /> Chat
                 </Link>
               </div>
             );

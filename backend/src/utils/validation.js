@@ -23,7 +23,11 @@ console.log(firstName, lastName, email, password);
 
 const validateProfileUpdateDate = (data)=>{
     
-    const FieldsAllowedToEdit = ["firstName", "lastName", "age", "skills", "gender", "about", "profileUrl"]
+    const FieldsAllowedToEdit = [
+      "firstName", "lastName", "age", "skills", "gender", "about", "profileUrl",
+      "title", "location", "github", "linkedin", "portfolio",
+      "interests", "languages", "projects"
+    ]
    
 
    const isAllowed =  Object.keys(data).every((key)=>FieldsAllowedToEdit.includes(key))

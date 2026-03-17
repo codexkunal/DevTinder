@@ -1,2 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* ============================================
+   DEVTINDER — TERMINAL-CHIC DESIGN SYSTEM
+   ============================================ */
+
+:root {
+  --bg-primary: #0B1114;
+  --bg-secondary: #101a20;
+  --bg-card: #131C22;
+  --bg-card-hover: #1a2730;
+  --bg-input: #0d1519;
+  --accent-cyan: #0db9f2;
+  --accent-cyan-dim: rgba(13, 185, 242, 0.15);
+  --accent-green: #00E676;
+  --accent-green-dim: rgba(0, 230, 118, 0.15);
+  --accent-red: #ff5f57;
+  --accent-yellow: #febc2e;
+  --accent-green-dot: #28c840;
+  --text-primary: #e8edf2;
+  --text-secondary: #7a8a99;
+  --text-muted: #4a5568;
+  --border-color: #1e2d38;
+  --border-hover: #2a3f4e;
+  --glow-cyan: 0 0 20px rgba(13, 185, 242, 0.25);
+  --glow-green: 0 0 20px rgba(0, 230, 118, 0.2);
+}
+
+/* DaisyUI Theme Override */
+@layer base {
+  [data-theme], html {
+    --p: 193 93% 50%;
+    --pf: 193 93% 40%;
+    --pc: 0 0% 100%;
+    --b1: 200 30% 7%;
+    --b2: 200 25% 10%;
+    --b3: 200 22% 13%;
+    --bc: 210 20% 90%;
+    --n: 200 20% 15%;
+    --nf: 200 20% 12%;
+    --nc: 210 20% 90%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Monospace Font */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* IDE Window Dots */
+.ide-dots::before {
+  content: '';
+  display: inline-flex;
+  gap: 6px;
+  margin-right: 12px;
+}
+
+.ide-dots-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ide-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.ide-dot--red { background: var(--accent-red); }
+.ide-dot--yellow { background: var(--accent-yellow); }
+.ide-dot--green { background: var(--accent-green-dot); }
+
+/* Glow Effects */
+.glow-cyan {
+  box-shadow: var(--glow-cyan);
+}
+
+.glow-green {
+  box-shadow: var(--glow-green);
+}
+
+.glow-cyan-text {
+  text-shadow: 0 0 10px rgba(13, 185, 242, 0.5);
+}
+
+/* Gradient Borders */
+.border-gradient-cyan {
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+.border-gradient-cyan::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent-cyan), transparent 60%);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* Code Block Styling */
+.code-block {
+  background: #0a1015;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.code-block-body {
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Syntax Highlighting Colors */
+.syn-keyword { color: #c792ea; }
+.syn-string { color: #c3e88d; }
+.syn-number { color: #f78c6c; }
+.syn-comment { color: #546e7a; font-style: italic; }
+.syn-property { color: #82aaff; }
+.syn-bracket { color: #89ddff; }
+.syn-type { color: var(--accent-cyan); }
+
+/* Card Styles */
+.dt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.dt-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+/* Input Styles */
+.dt-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+  transition: all 0.2s ease;
+  outline: none;
+  width: 100%;
+}
+.dt-input:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px var(--accent-cyan-dim);
+}
+.dt-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Button Styles */
+.dt-btn-primary {
+  background: var(--accent-cyan);
+  color: #000;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.dt-btn-primary:hover {
+  background: #0aa8dd;
+  box-shadow: var(--glow-cyan);
+}
+
+.dt-btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.dt-btn-outline:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+.dt-btn-ghost {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.dt-btn-ghost:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-primary);
+}
+
+/* Badge / Tag */
+.dt-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.dt-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dt-badge-cyan {
+  background: var(--accent-cyan-dim);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(13, 185, 242, 0.3);
+}
+
+.dt-badge-green {
+  background: var(--accent-green-dim);
+  color: var(--accent-green);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+/* Progress Ring */
+.progress-ring {
+  transform: rotate(-90deg);
+}
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.5s ease;
+  stroke-linecap: round;
+}
+
+/* GitHub Heatmap Squares */
+.heatmap-square {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--border-color);
+}
+.heatmap-square--l1 { background: rgba(13, 185, 242, 0.2); }
+.heatmap-square--l2 { background: rgba(13, 185, 242, 0.4); }
+.heatmap-square--l3 { background: rgba(13, 185, 242, 0.6); }
+.heatmap-square--l4 { background: var(--accent-cyan); }
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(13, 185, 242, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(13, 185, 242, 0.6); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Section styling */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
