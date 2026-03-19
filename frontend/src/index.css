@@ -174,128 +174,130 @@ body {
 .syn-bracket { color: #89ddff; }
 .syn-type { color: var(--accent-cyan); }
 
-/* Card Styles */
-.dt-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-.dt-card:hover {
-  border-color: var(--border-hover);
-  background: var(--bg-card-hover);
-}
+@layer components {
+  /* Card Styles */
+  .dt-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  .dt-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+  }
 
-/* Input Styles */
-.dt-input {
-  background: var(--bg-input);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: var(--text-primary);
-  font-family: 'Space Grotesk', sans-serif;
-  transition: all 0.2s ease;
-  outline: none;
-  width: 100%;
-}
-.dt-input:focus {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 3px var(--accent-cyan-dim);
-}
-.dt-input::placeholder {
-  color: var(--text-muted);
-}
+  /* Input Styles */
+  .dt-input {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    transition: all 0.2s ease;
+    outline: none;
+    width: 100%;
+  }
+  .dt-input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 3px var(--accent-cyan-dim);
+  }
+  .dt-input::placeholder {
+    color: var(--text-muted);
+  }
 
-/* Button Styles */
-.dt-btn-primary {
-  background: var(--accent-cyan);
-  color: #000;
-  font-weight: 600;
-  padding: 10px 24px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.dt-btn-primary:hover {
-  background: #0aa8dd;
-  box-shadow: var(--glow-cyan);
-}
+  /* Button Styles */
+  .dt-btn-primary {
+    background: var(--accent-cyan);
+    color: #000;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .dt-btn-primary:hover {
+    background: #0aa8dd;
+    box-shadow: var(--glow-cyan);
+  }
 
-.dt-btn-outline {
-  background: transparent;
-  color: var(--text-primary);
-  font-weight: 500;
-  padding: 10px 24px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.dt-btn-outline:hover {
-  border-color: var(--accent-cyan);
-  color: var(--accent-cyan);
-}
+  .dt-btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .dt-btn-outline:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+  }
 
-.dt-btn-ghost {
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.dt-btn-ghost:hover {
-  background: rgba(255,255,255,0.05);
-  color: var(--text-primary);
-}
+  .dt-btn-ghost {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .dt-btn-ghost:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary);
+  }
 
-/* Badge / Tag */
-.dt-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  font-size: 13px;
-  color: var(--text-primary);
-  font-family: 'Space Grotesk', sans-serif;
-}
+  /* Badge / Tag */
+  .dt-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+  }
 
-.dt-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+  .dt-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
 
-.dt-badge-cyan {
-  background: var(--accent-cyan-dim);
-  color: var(--accent-cyan);
-  border: 1px solid rgba(13, 185, 242, 0.3);
-}
+  .dt-badge-cyan {
+    background: var(--accent-cyan-dim);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(13, 185, 242, 0.3);
+  }
 
-.dt-badge-green {
-  background: var(--accent-green-dim);
-  color: var(--accent-green);
-  border: 1px solid rgba(0, 230, 118, 0.3);
+  .dt-badge-green {
+    background: var(--accent-green-dim);
+    color: var(--accent-green);
+    border: 1px solid rgba(0, 230, 118, 0.3);
+  }
 }
 
 /* Progress Ring */
